@@ -11,7 +11,7 @@
 
 uintptr_t clientBase = (uintptr_t)GetModuleHandleA("rs2client.exe");
 uintptr_t openglBase = (uintptr_t)GetModuleHandleA("opengl32.dll");
-std::string TITLE_TEXT = "Alt1337 Toolkit - github.com/zkxjzmswkwl/alt1337-toolkit";
+std::string TITLE_TEXT = "NXTLite - github.com/zkxjzmswkwl/NXTLite";
 
 
 
@@ -58,11 +58,13 @@ BOOL __stdcall hwglSwapBuffers(HDC hDC)
 
     glColor3f(0, 0, 0);
     glPrintBig(xCenter + 1, 15, TITLE_TEXT.c_str());
-    glColor4f(
-        255,
-        randFloat(),
-        randFloat(),
-        1.0
+    glColor3f(
+        //randFloat(),
+        //randFloat(),
+        //randFloat(),
+        1.0,
+        0.2,
+        0.2
     );
     glPrintBig(xCenter, 17, TITLE_TEXT.c_str());
 
@@ -77,7 +79,7 @@ uintptr_t Main(HMODULE hModule)
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
 
-    SetConsoleTitleA("Alt1337 Development Console");
+    SetConsoleTitleA("NXTLite Development Console");
     std::cout << "rs2client.exe starts at\n\t" << std::hex << clientBase << std::endl;
     std::cout << "opengl32.dll  starts at\n\t" << std::hex << openglBase << std::endl;
 
