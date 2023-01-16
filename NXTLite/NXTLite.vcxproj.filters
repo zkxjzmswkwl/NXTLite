@@ -24,13 +24,22 @@
     <ClInclude Include="Minhook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GLText.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Skills.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderHook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NGlobal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -39,6 +48,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Overlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skills.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NGlobal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

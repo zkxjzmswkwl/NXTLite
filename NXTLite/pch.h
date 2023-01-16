@@ -9,5 +9,17 @@
 
 // add headers that you want to pre-compile here
 #include "framework.h"
+#include <Windows.h>
+#include <string>
+#include <vector>
+#include <gl/glew.h>
+#include <gl/GL.h>
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_internal.h"
+#include "NGlobal.h"
+
+
 
 #endif //PCH_H
