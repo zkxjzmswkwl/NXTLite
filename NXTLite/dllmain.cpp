@@ -12,8 +12,33 @@
 #include "imgui_impl_win32.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_internal.h"
+#include "Skills.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+SkillTree* skillTree = nullptr;
+
+void InitStyle()
+{
+    //ImGui::StyleColorsDark();
+
+    auto& Style = ImGui::GetStyle();
+
+    Style.WindowPadding = ImVec2(20.000f, 10.000f);
+    Style.FramePadding = ImVec2(10.000f, 5.000f);
+    Style.ItemInnerSpacing = ImVec2(20.000f, 20.000f);
+    Style.CellPadding = ImVec2(10.000f, 10.000f);
+    Style.IndentSpacing = 14.000f;
+    Style.ScrollbarSize = 13.000f;
+
+
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->AddFontFromFileTTF("C:/Users/Carter/Desktop/Ruda-Bold.ttf", 18.000f);
+}
+
+void DrawMenu()
+{
+}
+
 
 
 uintptr_t clientBase = (uintptr_t)GetModuleHandleA("rs2client.exe");
@@ -27,6 +52,7 @@ void UnhookJamflexMouse()
     std::cout << "Mouse hook pointer: " << std::hex << jagexMouseHook << std::endl;
     if (UnhookWindowsHookEx(jagexMouseHook) != 0)
         std::cout << "Unhooked." << std::endl;
+    std::dec;
 }
 
 
@@ -56,6 +82,7 @@ struct Packet
 HWND hGameWindow;
 WNDPROC hGameWindowProc;
 bool menuShown = true;
+bool pinMenu = true;
 
 LRESULT CALLBACK windowProc_hook(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -65,14 +92,30 @@ LRESULT CALLBACK windowProc_hook(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
         return false;
     }
 
+    if (uMsg == WM_KEYDOWN && wParam == VK_END) {
+        pinMenu = !pinMenu;
+        return false;
+    }
+
     // If the overlay is shown, direct input to the overlay only
-    if (menuShown) {
+    if (menuShown && !pinMenu) {
         CallWindowProc(ImGui_ImplWin32_WndProcHandler, hWnd, uMsg, wParam, lParam);
         return true;
     }
 
     // Otherwise call the game's wndProc function
     return CallWindowProc(hGameWindowProc, hWnd, uMsg, wParam, lParam);
+}
+
+void StatTrackWindow()
+{
+    ImGui::SetNextWindowBgAlpha(0.5f);
+    ImGui::Begin("NXTLite - RuneMetrics");
+    if (skillTree != nullptr)
+    {
+        ImGui::Text("Attack\n\tLevel: %i\n\tEXP: %i", skillTree->attack.curLevel, skillTree->attack.totalExp);
+    }
+    ImGui::End();
 }
 
 BOOL __stdcall hwglSwapBuffers(HDC hDc)
@@ -106,8 +149,8 @@ BOOL __stdcall hwglSwapBuffers(HDC hDc)
         colors[ImGuiCol_FrameBg] = ImVec4(0.05f, 0.05f, 0.05f, 0.54f);
         colors[ImGuiCol_FrameBgHovered] = ImVec4(0.19f, 0.19f, 0.19f, 0.54f);
         colors[ImGuiCol_FrameBgActive] = ImVec4(0.20f, 0.22f, 0.23f, 1.00f);
-        colors[ImGuiCol_TitleBg] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
-        colors[ImGuiCol_TitleBgActive] = ImVec4(0.06f, 0.06f, 0.06f, 1.00f);
+        colors[ImGuiCol_TitleBg] = ImVec4(0.33f, 0.67f, 0.86f, 0.70f);
+        colors[ImGuiCol_TitleBgActive] = ImVec4(0.33f, 0.67f, 0.86f, 1.00f);
         colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
         colors[ImGuiCol_MenuBarBg] = ImVec4(0.14f, 0.14f, 0.14f, 1.00f);
         colors[ImGuiCol_ScrollbarBg] = ImVec4(0.05f, 0.05f, 0.05f, 0.54f);
@@ -174,8 +217,7 @@ BOOL __stdcall hwglSwapBuffers(HDC hDc)
         style.LogSliderDeadzone = 4;
         style.TabRounding = 4;
 
-        ImGuiIO& io = ImGui::GetIO();
-        //io.Fonts->AddFontFromFileTTF("C:\\Users\\Carter\\Desktop\\Ruda-Bold.ttf", 14);
+        InitStyle();
         ImGui::CaptureMouseFromApp();
     }
 
@@ -184,7 +226,8 @@ BOOL __stdcall hwglSwapBuffers(HDC hDc)
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
-        ImGui::ShowDemoWindow();
+        StatTrackWindow();
+        //ImGui::ShowDemoWindow();
         ImGui::Render();
 
         // Draw the overlay
@@ -234,6 +277,8 @@ BOOL __stdcall hwglSwapBuffers(HDC hDc)
 	//wglMakeCurrent(hDC, gameContext);
 	return owglSwapBuffer(hDc);
 }
+
+
 uintptr_t Main(HMODULE hModule)
 {
     AllocConsole();
@@ -245,6 +290,7 @@ uintptr_t Main(HMODULE hModule)
     SetConsoleTitleA("NXTLite Development Console");
     std::cout << "rs2client.exe starts at\n\t" << std::hex << clientBase << std::endl;
     std::cout << "opengl32.dll  starts at\n\t" << std::hex << openglBase << std::endl;
+    std::dec;
 
     MH_Initialize();
 
@@ -252,14 +298,26 @@ uintptr_t Main(HMODULE hModule)
 
     MH_EnableHook(MH_ALL_HOOKS);
 
+
     for (;;)
     {
-        // Deject
+        if (GetAsyncKeyState(VK_F2) & 1)
+        {
+            skillTree = loadSkills(clientBase);
+            std::cout << std::dec << "Attack EXP: " << skillTree->attack.totalExp << std::endl;
+            std::cout << std::dec << "Mining EXP: " << skillTree->mining.totalExp << skillTree->mining.curLevel << std::endl;
+        }
+        // Eject
         if (GetAsyncKeyState(VK_F1) & 1)
+        {
+            //ImGui_ImplOpenGL3_Shutdown();
+            //ImGui::DestroyContext();
             break;
+        }
     }
 
     MH_DisableHook(MH_ALL_HOOKS);
+    MH_Uninitialize();
     fclose(f);
     FreeConsole();
     FreeLibraryAndExitThread(hModule, 0);

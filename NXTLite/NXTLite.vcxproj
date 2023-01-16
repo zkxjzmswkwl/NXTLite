@@ -161,8 +161,10 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="GLText.h" />
+    <ClInclude Include="Util.h" />
     <ClInclude Include="Minhook.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Skills.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
