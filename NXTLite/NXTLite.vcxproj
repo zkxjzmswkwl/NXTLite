@@ -159,7 +159,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Buffer.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Hooks.h" />
     <ClInclude Include="NApplication.h" />
     <ClInclude Include="NGlobal.h" />
     <ClInclude Include="Overlay.h" />
@@ -170,6 +172,7 @@
     <ClInclude Include="Skills.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="NApplication.cpp" />
     <ClCompile Include="NGlobal.cpp" />
