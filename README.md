@@ -17,7 +17,9 @@ vcpkg install imgui[core,opengl3-binding,win32-binding]:x64-windows
 
 # More up to date screenshot
 
-![Current State](https://i.imgur.com/ufqBn4X.jpg)
+![Current State](https://media.discordapp.net/attachments/484796759437213716/1089661439821750366/image.png)
+
+![Old State](https://i.imgur.com/ufqBn4X.jpg)
 
 # Notes about the client.
 
