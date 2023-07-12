@@ -1,16 +1,24 @@
 #pragma once
-class Buffer
+class Packet
 {
 private:
-	int m_array[512];
 	int m_offset;
 public:
-	Buffer();
+	Packet();
+
+	unsigned char m_array[512]{0};
+
 	void writeByte(int);
+
 	void writeShort(int);
+
 	void writeInt(int);
+
 	void writeBool(bool);
+
+	int readShort();
+
+	int readInt();
 
 	void print();
 };
-
