@@ -45,9 +45,9 @@ int Packet::readInt()
 {
 	m_offset += 4;
 	return 	((m_array[m_offset -4]  & 0xff) << 24)  +
-			((m_array[m_offset - 3] & 0xff) << 16)  +
-			((m_array[m_offset - 2] & 0xff) << 8)   + 
-			(m_array[m_offset - 1]  & 0xff);
+		((m_array[m_offset - 3] & 0xff) << 16)  +
+		((m_array[m_offset - 2] & 0xff) << 8)   + 
+		(m_array[m_offset - 1]  & 0xff);
 }
 
 void Packet::print()
