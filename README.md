@@ -1,5 +1,3 @@
-# dead project turned it into a bot
-
 # Building
 
 * Clone the project
