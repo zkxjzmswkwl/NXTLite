@@ -11,7 +11,9 @@ vcpkg install imgui[core,opengl3-binding,win32-binding]:x64-windows
 
 # More up to date screenshot
 
-![Current State](https://media.discordapp.net/attachments/484796759437213716/1089661439821750366/image.png)
+![Before I stopped updating shit](https://pbs.twimg.com/media/F27cW46bMAA-P4t?format=jpg&name=4096x4096)
+
+![Oldish](https://pbs.twimg.com/media/Fu1vROlaYAAUiTk?format=jpg&name=4096x4096)
 
 ![Old State](https://i.imgur.com/ufqBn4X.jpg)
 
