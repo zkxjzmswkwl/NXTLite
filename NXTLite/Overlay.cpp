@@ -20,7 +20,6 @@ void Overlay::StatTrackWindow()
 
 Overlay::Overlay()
 {
-    printf("YEP COCK\n");
 }
 
 Overlay::~Overlay()
@@ -106,14 +105,14 @@ void Overlay::InitStyle()
         style.TabRounding = 4;
 
 
-		style.WindowPadding = ImVec2(20.000f, 10.000f);
-		style.FramePadding = ImVec2(10.000f, 5.000f);
-		style.ItemInnerSpacing = ImVec2(20.000f, 20.000f);
-		style.CellPadding = ImVec2(10.000f, 10.000f);
-		style.IndentSpacing = 14.000f;
-		style.ScrollbarSize = 13.000f;
-
-
-		ImGuiIO& io = ImGui::GetIO();
-		io.Fonts->AddFontFromFileTTF(m_fontPath.c_str(), m_fontSize);
+	style.WindowPadding = ImVec2(20.000f, 10.000f);
+	style.FramePadding = ImVec2(10.000f, 5.000f);
+	style.ItemInnerSpacing = ImVec2(20.000f, 20.000f);
+	style.CellPadding = ImVec2(10.000f, 10.000f);
+	style.IndentSpacing = 14.000f;
+	style.ScrollbarSize = 13.000f;
+	
+	
+	ImGuiIO& io = ImGui::GetIO();
+	io.Fonts->AddFontFromFileTTF(m_fontPath.c_str(), m_fontSize);
 }
